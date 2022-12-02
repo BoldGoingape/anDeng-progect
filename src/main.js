@@ -6,6 +6,10 @@ import ElementUi from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 //引入VueRouter
 import VueRouter from "vue-router";
+//引入bootstrap
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap";
+//
 
 //引入路由器
 import router from "./router";

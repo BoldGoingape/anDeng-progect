@@ -2,7 +2,7 @@
   <div>
     <div class="footer_guide">
       <router-link
-        to="/manage"
+        to="/manage? title=Andon管理&id=666 "
         replace
         class="guide_item"
         active-class="on"
@@ -47,8 +47,6 @@ export default {
 </script>
 
 <style scoped>
-.achtvee {
-}
 .footer_guide {
   position: fixed;
   text-decoration: none;

@@ -12,11 +12,4 @@ export default {
 };
 </script>
 
-<style>
-.el-main {
-  background-color: #e9eef3;
-  color: #333;
-  text-align: center;
-  line-height: 500px;
-}
-</style>
+<style></style>
