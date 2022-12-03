@@ -7,6 +7,9 @@
 <script>
 export default {
   name: "obj-list",
+  mounted() {
+    this.$bus.$emit("hello", this.$route.query.title);
+  },
 };
 </script>
 

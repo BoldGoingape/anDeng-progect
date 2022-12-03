@@ -38,7 +38,7 @@ export default {
     return {};
   },
   mounted() {
-    console.log(this.$route.query.title);
+    this.$bus.$emit("hello", this.$route.query.title);
   },
 };
 </script>

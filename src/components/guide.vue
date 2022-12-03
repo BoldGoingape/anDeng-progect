@@ -2,7 +2,7 @@
   <div>
     <div class="footer_guide">
       <router-link
-        to="/manage? title=Andon管理&id=666 "
+        to="/manage?title=Andon管理&id=666 "
         replace
         class="guide_item"
         active-class="on"
@@ -13,19 +13,34 @@
         </span>
         <span>Andon管理</span>
       </router-link>
-      <router-link to="/message" class="guide_item" active-class="on" replace>
+      <router-link
+        to="/message?title=工位信息&id=666"
+        class="guide_item"
+        active-class="on"
+        replace
+      >
         <span class="item_icon">
           <img src="../assets/xinxi_btn.png" alt="" />
         </span>
         <span>工位信息</span>
       </router-link>
-      <router-link to="/obj" class="guide_item" active-class="on" replace>
+      <router-link
+        to="/obj? title=工位列表&id=666"
+        class="guide_item"
+        active-class="on"
+        replace
+      >
         <span class="item_icon">
           <img src="../assets/gongwei_btn.png" alt="" />
         </span>
         <span>工位列表</span>
       </router-link>
-      <router-link to="/heart" class="guide_item" active-class="on" replace>
+      <router-link
+        to="/heart? title=监控中心&id=666"
+        class="guide_item"
+        active-class="on"
+        replace
+      >
         <span class="item_icon">
           <img src="../assets/jiankong_btn.png" alt="" />
         </span>

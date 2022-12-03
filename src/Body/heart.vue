@@ -1,12 +1,20 @@
 <template>
   <div>
-    <h1>我是监控中心</h1>
+    <h1>{{ HeadTitle }}</h1>
   </div>
 </template>
 
 <script>
 export default {
   name: "heart-",
+  data() {
+    return {
+      HeadTitle: "",
+    };
+  },
+  mounted() {
+    this.$bus.$emit("hello", this.$route.query.title);
+  },
 };
 </script>
 
