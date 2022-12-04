@@ -2,7 +2,10 @@
   <div>
     <el-header style="height: 100px">
       <h1 style="padding-top: 10px">{{ HeadTitle }}</h1>
-      <div style="display: flex; justify-content: flex-end">
+      <div
+        style="display: flex; justify-content: flex-end"
+        v-show="isShow !== '003'"
+      >
         <!-- 下拉1 -->
         <div style="width: 70px">
           <el-select
@@ -10,7 +13,7 @@
             placeholder="车间"
             size="mini"
             class="wj-input__inner"
-            @change="slectChange($event)"
+            @change="slectWorkshop($event)"
           >
             <el-option
               class="wj-input__inner"
@@ -29,6 +32,7 @@
             placeholder="产线"
             size="mini"
             class="wj-input__inner"
+            @change="slectProduce($event)"
           >
             <el-option
               class="wj-input__inner"
@@ -59,6 +63,15 @@
           </el-select>
         </div>
       </div>
+      <!-- 搜索框 -->
+      <div v-show="isShow == '003'" class="ipt-box">
+        <div class="ipt-i">
+          <i class="el-icon-search"></i>
+        </div>
+        <el-input v-model="input" placeholder="点击查看节点信息">
+          <span class="el-icon-search"></span
+        ></el-input>
+      </div>
     </el-header>
   </div>
 </template>
@@ -72,42 +85,45 @@ export default {
     return {
       HeadTitle: "Andon管理",
       workshop_options: [],
-      produce_options: [
-        {
-          value: "选项1",
-          label: "黄金糕",
-        },
-        {
-          value: "选项2",
-          label: "双皮奶",
-        },
-      ],
-      workList_options: [
-        {
-          value: "选项3",
-          label: "蚵仔煎",
-        },
-        {
-          value: "选项4",
-          label: "龙须面",
-        },
-        {
-          value: "选项5",
-          label: "北京烤鸭",
-        },
-      ],
+      produce_options: [],
+      workList_options: [],
       workshop_value: "车间",
       produce_value: "产线",
       workList_value: "工位",
+      dataArr: [],
+      isShow: "",
+      input: "",
     };
   },
   methods: {
-    slectChange(value) {
-      console.log(value);
+    slectWorkshop(value) {
+      this.produce_options = [];
+      var arr = this.dataArr.filter((item) => {
+        return item.parent_id === value;
+      });
+      for (let index = 0; index < arr.length; index++) {
+        this.produce_options.unshift({
+          value: arr[index].id,
+          label: arr[index].ms_name,
+        });
+      }
+    },
+    slectProduce(value) {
+      this.workList_options = [];
+      var arr = this.dataArr.filter((item) => {
+        return item.parent_id === value;
+      });
+      for (let index = 0; index < arr.length; index++) {
+        this.workList_options.unshift({
+          value: arr[index].id,
+          label: arr[index].ms_name,
+        });
+      }
     },
   },
   mounted() {
     var selectArr = [];
+    var dataarr = [];
     $.ajax({
       url: "http://8.142.1.120/khaan/oauth/token",
       type: "POST",
@@ -133,7 +149,7 @@ export default {
         sessionStorage.setItem("user", JSON.stringify(user));
       },
       error: function (err) {
-        console.log(err);
+        throw Error("出错啦！！", err);
       },
     });
     //ajax2
@@ -155,10 +171,9 @@ export default {
       },
       success: function () {
         //这个是主页
-        // console.log(data);
       },
       error: function (err) {
-        console.log(err);
+        throw Error("出错啦！", err);
       },
     });
 
@@ -177,17 +192,19 @@ export default {
         "X-Tenant-Id": user.tenant_id, //租户id
         "X-Team-Id": user.team_id, //组织id
       },
+
       success: function (data) {
+        // console.log(data);
+        dataarr = data;
         //车间产线工位
         selectArr = data.filter((item) => {
           return item.ms_type == 1;
         });
       },
       error: function (err) {
-        console.log(err);
+        throw Error("请求超时", err);
       },
     });
-
     setTimeout(() => {
       for (let index = 0; index < selectArr.length; index++) {
         this.workshop_options.unshift({
@@ -195,11 +212,14 @@ export default {
           label: selectArr[index].ms_name,
         });
       }
+      for (let index = 0; index < dataarr.length; index++) {
+        this.dataArr.push(dataarr[index]);
+      }
     }, 500);
-    // console.log(this.options[0].id);
     //注册全局事件
     this.$bus.$on("hello", (data) => {
-      this.HeadTitle = data;
+      this.HeadTitle = data.title;
+      this.isShow = data.id;
     });
   },
 };
@@ -227,5 +247,29 @@ export default {
   color: aliceblue;
   width: 75px;
   background-color: #1083fb;
+}
+/* 搜索框 */
+.ipt-box {
+  background-color: white;
+  border-radius: 25px;
+  display: flex;
+  width: 100%;
+  height: 38px;
+  margin: 0 0;
+  padding: 0 0;
+}
+.ipt-i {
+  width: 52px;
+  color: #b1b1b1;
+  text-align: center;
+  line-height: 38px;
+}
+.ipt-box input {
+  width: 320px;
+  height: 35px;
+  border: 0px;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  padding: 0 0;
 }
 </style>

@@ -2,7 +2,7 @@
   <div>
     <div class="footer_guide">
       <router-link
-        to="/manage?title=Andon管理&id=666 "
+        to="/manage?title=Andon管理&id=001 "
         replace
         class="guide_item"
         active-class="on"
@@ -14,7 +14,7 @@
         <span>Andon管理</span>
       </router-link>
       <router-link
-        to="/message?title=工位信息&id=666"
+        to="/message?title=工位信息&id=002"
         class="guide_item"
         active-class="on"
         replace
@@ -25,7 +25,7 @@
         <span>工位信息</span>
       </router-link>
       <router-link
-        to="/obj? title=工位列表&id=666"
+        to="/obj? title=工位列表&id=003"
         class="guide_item"
         active-class="on"
         replace
@@ -36,7 +36,7 @@
         <span>工位列表</span>
       </router-link>
       <router-link
-        to="/heart? title=监控中心&id=666"
+        to="/heart? title=监控中心&id=004"
         class="guide_item"
         active-class="on"
         replace

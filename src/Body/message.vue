@@ -32,7 +32,7 @@
 export default {
   name: "message-",
   mounted() {
-    this.$bus.$emit("hello", this.$route.query.title);
+    this.$bus.$emit("hello", this.$route.query);
   },
 };
 </script>
