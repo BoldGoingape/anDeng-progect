@@ -46,6 +46,7 @@ export default {
 <style>
 .div-box {
   display: flex;
+  margin: 10px;
 }
 .img-box {
   width: 110px;

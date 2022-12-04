@@ -10,7 +10,10 @@ import VueRouter from "vue-router";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap";
 //
-
+//引入 echarts
+import echarts from "echarts";
+//注册组件
+Vue.prototype.$echarts = echarts;
 //引入路由器
 import router from "./router";
 Vue.config.productionTip = false;

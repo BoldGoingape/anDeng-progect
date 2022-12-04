@@ -1,24 +1,17 @@
 <template>
-  <div class="">
-    <el-table :data="tableData" style="width: 100%" height="920px">
-      <el-table-column prop="date" label="工位名称"> </el-table-column>
-      <el-table-column prop="name" label="保险等级"
+  <div>
+    <el-table :data="tableData" style="width: 100%" height="300px">
+      <el-table-column prop="date" label="工位信息"> </el-table-column>
+      <el-table-column prop="name" label="报警等级"
         ><el-link type="danger">危险链接</el-link>
       </el-table-column>
       <el-table-column prop="date" label="报警时间"> </el-table-column>
-      <el-table-column prop="address" label="到场时间">
-        <el-button type="warning" plain size="small">处理</el-button>
-      </el-table-column>
-      <el-table-column prop="address" label="验收" width="0">
-        <el-button type="primary" plain size="small">验收&nbsp;</el-button>
-      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
 export default {
-  name: "obj-list",
   data() {
     return {
       tableData: [
@@ -125,10 +118,7 @@ export default {
       ],
     };
   },
-  mounted() {
-    this.$bus.$emit("hello", this.$route.query);
-  },
 };
 </script>
 
-<style scoped></style>
+<style></style>

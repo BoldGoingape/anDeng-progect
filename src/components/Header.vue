@@ -4,7 +4,7 @@
       <h1 style="padding-top: 10px">{{ HeadTitle }}</h1>
       <div
         style="display: flex; justify-content: flex-end"
-        v-show="isShow !== '003'"
+        v-show="isShow !== '003' && isShow !== '004'"
       >
         <!-- 下拉1 -->
         <div style="width: 70px">
@@ -64,7 +64,7 @@
         </div>
       </div>
       <!-- 搜索框 -->
-      <div v-show="isShow == '003'" class="ipt-box">
+      <div v-show="isShow == '003' || isShow == '004'" class="ipt-box">
         <div class="ipt-i">
           <i class="el-icon-search"></i>
         </div>
@@ -227,7 +227,13 @@ export default {
 
 <style>
 .el-header {
-  background-color: #1083fb;
+  /* background-color: #1083fb; */
+  background: radial-gradient(
+    circle,
+    rgb(19, 61, 187),
+    rgb(22, 67, 229),
+    #046bf2fd
+  );
   height: 150px;
   line-height: 38px;
 }
