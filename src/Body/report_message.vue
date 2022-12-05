@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>我是 实时报警系统</h1>
+    <h1>sfdas</h1>
     <div class="box-img"></div>
   </div>
 </template>

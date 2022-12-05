@@ -36,7 +36,7 @@
         @select="handleSelect"
         style="text-align: center"
       >
-        <el-menu-item index="1" style="width: 50%" active-class="text-color">
+        <el-menu-item index="2" style="width: 50%">
           <router-link
             to="/message/work_massage"
             replace
@@ -44,7 +44,7 @@
             >工位信息</router-link
           >
         </el-menu-item>
-        <el-menu-item index="2" style="width: 50%">
+        <el-menu-item index="1" style="width: 50%">
           <router-link
             to="/message/report_list"
             replace

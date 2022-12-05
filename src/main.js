@@ -10,8 +10,11 @@ import VueRouter from "vue-router";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap";
 //
-//引入 echarts
-import echarts from "echarts";
+//引入echarts
+import * as echarts from "echarts"; //在import的后面，echarts的前面加一个 * as
+//vue全局注入echarts
+Vue.prototype.$echarts = echarts;
+
 //注册组件
 Vue.prototype.$echarts = echarts;
 //引入路由器
