@@ -16,6 +16,7 @@ export default {
   },
   mounted() {
     this.drawLine();
+    this.drawLineTwo();
   },
   methods: {
     drawLine() {
@@ -31,15 +32,66 @@ export default {
         yAxis: {},
         series: [
           {
-            name: "",
+            name: "数据",
             type: "bar",
             data: this.TiemData,
           },
         ],
       });
     },
+    // 图标二
+    drawLineTwo() {
+      // var chartDom = document.getElementById("main");
+      var myChart = this.$echarts.init(document.getElementById("myChartTwo"));
+      var option;
+
+      option = {
+        title: { text: "次数汇总", subtext: "", left: "center" },
+        xAxis: {
+          type: "category",
+          boundaryGap: false,
+          data: ["次数", "生产", "维修", "工艺", "质量", "物流"],
+        },
+        yAxis: {
+          type: "value",
+        },
+        color: {
+          type: "linear",
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [
+            {
+              offset: 0,
+              color: "#f76408", // 0% 处的颜色
+            },
+            {
+              offset: 1,
+              color: "#ffe9db", // 100% 处的颜色
+            },
+          ],
+          global: false, // 缺省为 false
+        },
+        // visualMap: {
+        //   type: "piecewise",
+        //   show: false,
+        //   dimension: 0,
+        //   // seriesIndex: 0,
+
+        // },
+        series: [
+          {
+            data: [0, 5, 7, 9, 88, 7, 30, 18],
+            type: "line",
+            areaStyle: {},
+          },
+        ],
+      };
+
+      option && myChart.setOption(option);
+    },
   },
-  // 图标二
 };
 </script>
 
