@@ -64,7 +64,7 @@ export default {
           colorStops: [
             {
               offset: 0,
-              color: "#f76408", // 0% 处的颜色
+              color: "#ff5f2d", // 0% 处的颜色
             },
             {
               offset: 1,
@@ -82,7 +82,7 @@ export default {
         // },
         series: [
           {
-            data: [0, 5, 7, 9, 88, 7, 30, 18],
+            data: [0, 5, 7, 9, 8, 7],
             type: "line",
             areaStyle: {},
           },
