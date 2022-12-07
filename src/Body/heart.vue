@@ -49,7 +49,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .box-img {
   width: 100%;
   height: 250px;

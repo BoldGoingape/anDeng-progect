@@ -37,6 +37,24 @@ export default {
             data: this.TiemData,
           },
         ],
+        color: {
+          type: "linear",
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [
+            {
+              offset: 0,
+              color: "#00aaf8", // 0% 处的颜色
+            },
+            {
+              offset: 1,
+              color: "#067bb1", // 100% 处的颜色
+            },
+          ],
+          global: false, // 缺省为 false
+        },
       });
     },
     // 图标二

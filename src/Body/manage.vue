@@ -1,42 +1,163 @@
 <template>
-  <div>
-    <div class="div-box">
-      <div class="img-box">
-        <img src="../assets/anquan.png" alt="安全" />
-        <span>安全</span>
-      </div>
-      <div class="img-box">
-        <img src="../assets/zhiliang.png" alt="质量" />
-        <span>质量</span>
-      </div>
-      <div class="img-box">
-        <img src="../assets/yanfa.png" alt="研发" />
-        <span>研发</span>
-      </div>
-    </div>
-    <div class="div-box">
-      <div class="img-box">
-        <img src="../assets/kufang.png" alt="库房" />
-        <span>库房</span>
-      </div>
-      <div class="img-box">
-        <img src="../assets/shengchan.png" alt="生产" />
-        <span>生产</span>
-      </div>
-      <div class="img-box">
-        <img src="../assets/gongyi.png" alt="工艺" />
-        <span>工艺</span>
-      </div>
-    </div>
+  <div style="margin-top: 35px">
+    <el-row>
+      <el-col :span="2"><div class="grid-content bg-purple"></div></el-col>
+      <el-col :span="6"
+        ><div class="grid-content bg-purple-light">
+          <el-row>
+            <el-col>
+              <el-card
+                :body-style="{ padding: '10px' }"
+                style="
+                  border: 1px solid #46a0fc;
+                  background-color: #edf6ff;
+                  text-align: center;
+                "
+              >
+                <img src="../assets/anquan.png" class="image" />
+                <div style="padding: 0px">
+                  <div class="bottom clearfix">
+                    <!-- <span>安全</span> -->
+                    <el-button type="text" class="button">安全</el-button>
+                  </div>
+                </div>
+              </el-card>
+            </el-col>
+          </el-row>
+        </div></el-col
+      >
+      <el-col :span="1"><div class="grid-content bg-purple"></div></el-col>
+      <el-col :span="6"
+        ><div class="grid-content bg-purple-light">
+          <el-row>
+            <el-col>
+              <el-card
+                :body-style="{ padding: '10px' }"
+                style="
+                  border: 1px solid #46a0fc;
+                  background-color: #edf6ff;
+                  text-align: center;
+                "
+              >
+                <img src="../assets/zhiliang.png" class="image" />
+                <div style="padding: 0px">
+                  <div class="bottom clearfix">
+                    <el-button type="text" class="button">质量</el-button>
+                  </div>
+                </div>
+              </el-card>
+            </el-col>
+          </el-row>
+        </div></el-col
+      >
+      <el-col :span="1"><div class="grid-content bg-purple"></div></el-col>
+      <el-col :span="6"
+        ><div class="grid-content bg-purple-light">
+          <el-row>
+            <el-col>
+              <el-card
+                :body-style="{ padding: '10px' }"
+                style="
+                  border: 1px solid #46a0fc;
+                  background-color: #edf6ff;
+                  text-align: center;
+                "
+              >
+                <img src="../assets/yanfa.png" class="image" />
+                <div style="padding: 0px">
+                  <div class="bottom clearfix">
+                    <el-button type="text" class="button">研发</el-button>
+                  </div>
+                </div>
+              </el-card>
+            </el-col>
+          </el-row>
+        </div></el-col
+      >
+      <el-col :span="1"><div class="grid-content bg-purple"></div></el-col>
+    </el-row>
+    <!-- 第二 -->
+    <el-row>
+      <el-col :span="2"><div class="grid-content bg-purple"></div></el-col>
+      <el-col :span="6"
+        ><div class="grid-content bg-purple-light">
+          <el-row>
+            <el-col>
+              <el-card
+                :body-style="{ padding: '10px' }"
+                style="
+                  border: 1px solid #46a0fc;
+                  background-color: #edf6ff;
+                  text-align: center;
+                "
+              >
+                <img src="../assets/kufang.png" class="image" />
+                <div style="padding: 14px">
+                  <div class="bottom clearfix">
+                    <el-button type="text" class="button">库房</el-button>
+                  </div>
+                </div>
+              </el-card>
+            </el-col>
+          </el-row>
+        </div></el-col
+      >
+      <el-col :span="1"><div class="grid-content bg-purple"></div></el-col>
+      <el-col :span="6"
+        ><div class="grid-content bg-purple-light">
+          <el-row>
+            <el-col>
+              <el-card
+                :body-style="{ padding: '10px' }"
+                style="
+                  border: 1px solid #46a0fc;
+                  background-color: #edf6ff;
+                  text-align: center;
+                "
+              >
+                <img src="../assets/shengchan.png" class="image" />
+                <div style="padding: 14px">
+                  <div class="bottom clearfix">
+                    <el-button type="text" class="button">生产</el-button>
+                  </div>
+                </div>
+              </el-card>
+            </el-col>
+          </el-row>
+        </div></el-col
+      >
+      <el-col :span="1"><div class="grid-content bg-purple"></div></el-col>
+      <el-col :span="6"
+        ><div class="grid-content bg-purple-light">
+          <el-row>
+            <el-col>
+              <el-card
+                :body-style="{ padding: '10px' }"
+                style="
+                  border: 1px solid #46a0fc;
+                  background-color: #edf6ff;
+                  text-align: center;
+                "
+              >
+                <img src="../assets/gongyi.png" class="image" />
+                <div style="padding: 14px">
+                  <div class="bottom clearfix">
+                    <el-button type="text" class="button">工艺</el-button>
+                  </div>
+                </div>
+              </el-card>
+            </el-col>
+          </el-row>
+        </div></el-col
+      >
+      <el-col :span="1"><div class="grid-content bg-purple"></div></el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
 export default {
-  name: "manage-",
-  data() {
-    return {};
-  },
+  name: "img-",
   mounted() {
     this.$bus.$emit("hello", this.$route.query);
   },
@@ -44,23 +165,60 @@ export default {
 </script>
 
 <style>
-.div-box {
-  display: flex;
-  margin: 10px;
+.el-row {
+  margin-bottom: 20px;
 }
-.img-box {
-  width: 110px;
-  height: 110px;
-  margin: 5px;
-  border: 1px solid#74b7fe;
-  text-align: center;
-  font-weight: bolder;
-  border-radius: 10px;
-  background-color: #edf6ff;
+.el-col {
+  border-radius: 4px;
 }
-.img-box img {
-  width: 80%;
+.bg-purple-dark {
+  /* background: #99a9bf; */
+}
+.bg-purple {
+  /* background: #d3dce6; */
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+}
+.row-bg {
+  padding: 10px 0;
+  background-color: #f9fafc;
+}
+/* 卡片样式 */
+.time {
+  font-size: 25px;
+
+  /* color: #999; */
+}
+
+.bottom {
+  margin-top: 0px;
+  line-height: 20px;
+}
+
+.button {
+  padding: 0;
+  /* float: right; */
+}
+
+.image {
+  width: 60%;
   height: 60px;
-  margin: 10px;
+  margin: 0 auto;
+  display: block;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+
+.clearfix:after {
+  clear: both;
 }
 </style>

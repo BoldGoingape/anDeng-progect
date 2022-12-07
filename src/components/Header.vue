@@ -218,6 +218,7 @@ export default {
     }, 500);
     //注册全局事件
     this.$bus.$on("hello", (data) => {
+      console.log(data);
       this.HeadTitle = data.title;
       this.isShow = data.id;
     });

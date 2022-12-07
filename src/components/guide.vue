@@ -3,10 +3,9 @@
     <div class="footer_guide">
       <router-link
         to="/manage?title=Andon管理&id=001 "
-        replace
         class="guide_item"
         active-class="on"
-        @click="go_img($attrs)"
+        replace
       >
         <span class="item_icon">
           <img src="../assets/andon_btn.png" alt="" />
@@ -55,6 +54,7 @@ export default {
   name: "guide-",
   methods: {
     go_img(x) {
+      console.log("几号");
       console.log(x);
     },
   },
