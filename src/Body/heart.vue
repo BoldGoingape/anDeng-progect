@@ -25,7 +25,9 @@
       </el-menu-item>
     </el-menu>
     <div class="line">
-      <router-view> </router-view>
+      <keep-alive>
+        <router-view> </router-view>
+      </keep-alive>
     </div>
   </div>
 </template>

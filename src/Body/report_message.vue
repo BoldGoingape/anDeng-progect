@@ -6,7 +6,26 @@
       </div>
     </div>
     <!-- 卡片组件 -->
-    <div style="padding: 5px 5px">
+    <div style="padding: 5px 5px; margin: 10px 10px">
+      <el-card
+        class="box-card"
+        style="border: 1px solid #9bccfd; background-color: #f4f9ff"
+      >
+        <div class="text item">
+          <h5>工位信息</h5>
+          <div class="text item">
+            <span style="margin-right: 15px">报警等级</span>
+            <span>一级报警</span>
+          </div>
+          <div class="text item">
+            <span style="margin-right: 15px">报警时间</span>
+            <span>2020-03-10 01:14:12</span>
+          </div>
+        </div>
+      </el-card>
+    </div>
+    <!-- 卡片组件 -->
+    <div style="padding: 5px 5px; margin: 10px 10px">
       <el-card
         class="box-card"
         style="border: 1px solid #9bccfd; background-color: #f4f9ff"

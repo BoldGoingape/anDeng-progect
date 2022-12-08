@@ -1,12 +1,14 @@
 <template>
   <div>
     <el-header style="height: 100px">
-      <h1 style="padding-top: 10px">{{ HeadTitle }}</h1>
+      <h1 style="padding-top: 10px">
+        {{ HeadTitle }}
+      </h1>
       <div
         style="display: flex; justify-content: flex-end"
         v-show="isShow !== '003' && isShow !== '004'"
       >
-        <!-- 下拉1 -->
+        <!-- 车间  -->
         <div style="width: 70px">
           <el-select
             v-model="workshop_value"
@@ -25,7 +27,7 @@
             </el-option>
           </el-select>
         </div>
-        <!-- 下拉2 -->
+        <!-- 产线-->
         <div style="width: 70px">
           <el-select
             v-model="produce_value"
@@ -44,13 +46,14 @@
             </el-option>
           </el-select>
         </div>
-        <!-- 下拉3 -->
+        <!-- 工位-->
         <div style="width: 70px">
           <el-select
             v-model="workList_value"
             placeholder="工位"
             size="mini"
             class="wj-input__inner"
+            @change="SelectWorkList($event)"
           >
             <el-option
               class="wj-input__inner"
@@ -90,12 +93,17 @@ export default {
       workshop_value: "车间",
       produce_value: "产线",
       workList_value: "工位",
+      work_shop_id: "",
+      product_line_id: "",
+      station_id: "",
       dataArr: [],
+      addData: "",
       isShow: "",
       input: "",
     };
   },
   methods: {
+    //车间
     slectWorkshop(value) {
       this.produce_options = [];
       var arr = this.dataArr.filter((item) => {
@@ -107,7 +115,9 @@ export default {
           label: arr[index].ms_name,
         });
       }
+      this.work_shop_id = value;
     },
+    //产线
     slectProduce(value) {
       this.workList_options = [];
       var arr = this.dataArr.filter((item) => {
@@ -119,9 +129,21 @@ export default {
           label: arr[index].ms_name,
         });
       }
+      this.product_line_id = value;
+    },
+    //工位
+    SelectWorkList(value) {
+      this.station_id = value;
+      this.addData = {
+        station_id: this.station_id,
+        work_shop_id: this.work_shop_id,
+        product_line_id: this.product_line_id,
+      };
+      this.$bus.$emit("id", this.addData);
     },
   },
   mounted() {
+    var auditData = [];
     var selectArr = [];
     var dataarr = [];
     $.ajax({
@@ -169,8 +191,8 @@ export default {
         "X-Tenant-Id": user.tenant_id, //租户id
         "X-Team-Id": user.team_id, //组织id
       },
-      success: function () {
-        //这个是主页
+      success: function (data) {
+        auditData = data;
       },
       error: function (err) {
         throw Error("出错啦！", err);
@@ -205,6 +227,7 @@ export default {
         throw Error("请求超时", err);
       },
     });
+
     setTimeout(() => {
       for (let index = 0; index < selectArr.length; index++) {
         this.workshop_options.unshift({
@@ -215,13 +238,17 @@ export default {
       for (let index = 0; index < dataarr.length; index++) {
         this.dataArr.push(dataarr[index]);
       }
-    }, 500);
+      console.log(this.addData);
+    }, 1000);
     //注册全局事件
     this.$bus.$on("hello", (data) => {
-      console.log(data);
       this.HeadTitle = data.title;
       this.isShow = data.id;
     });
+    setTimeout(() => {}, 500);
+    setTimeout(() => {
+      this.$bus.$emit("audit", auditData);
+    }, 500);
   },
 };
 </script>

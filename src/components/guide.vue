@@ -3,6 +3,7 @@
     <div class="footer_guide">
       <router-link
         to="/manage?title=Andon管理&id=001 "
+        v-once
         class="guide_item"
         active-class="on"
         replace
@@ -54,7 +55,6 @@ export default {
   name: "guide-",
   methods: {
     go_img(x) {
-      console.log("几号");
       console.log(x);
     },
   },

@@ -26,7 +26,12 @@
       </el-row>
     </div>
     <!-- 主体图 -->
-    <div class="box-img"></div>
+    <div class="box-img">
+      <img
+        src="https://pic.vjshi.com/2017-03-01/0f6d8b9e92ec7ee18d5ed00516a17bab/00002.jpg?x-oss-process=style/watermark"
+        alt=""
+      />
+    </div>
     <!-- 列表图 -->
     <div>
       <el-menu
@@ -83,6 +88,10 @@ export default {
 .box-img {
   width: 100%;
   height: 200px;
+}
+.box-img img {
+  width: 100%;
+  height: 100%;
 }
 .el-row {
   margin-bottom: 20px;
