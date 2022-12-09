@@ -134,12 +134,21 @@ export default {
     //工位
     SelectWorkList(value) {
       this.station_id = value;
+      var label = "";
+      for (let index = 0; index < this.workList_options.length; index++) {
+        if (this.workList_options[index].value == value) {
+          label = this.workList_options[index].label;
+        }
+      }
       this.addData = {
         station_id: this.station_id,
         work_shop_id: this.work_shop_id,
         product_line_id: this.product_line_id,
       };
       this.$bus.$emit("id", this.addData);
+      //为report_list提供工位
+      this.$bus.$emit("label", label);
+      this.$bus.$emit("product_line_id", this.station_id);
     },
   },
   mounted() {
@@ -162,7 +171,6 @@ export default {
         Authorization: "Basic dGVzdDp0ZXN0",
       },
       success: function (data) {
-        // console.log(data);
         let user = {
           token: data.access_token,
           tenant_id: data.tenants[0].id,
@@ -216,7 +224,6 @@ export default {
       },
 
       success: function (data) {
-        // console.log(data);
         dataarr = data;
         //车间产线工位
         selectArr = data.filter((item) => {
@@ -238,14 +245,13 @@ export default {
       for (let index = 0; index < dataarr.length; index++) {
         this.dataArr.push(dataarr[index]);
       }
-      console.log(this.addData);
     }, 1000);
     //注册全局事件
     this.$bus.$on("hello", (data) => {
+      console.log("我是传递过来的数据", data);
       this.HeadTitle = data.title;
       this.isShow = data.id;
     });
-    setTimeout(() => {}, 500);
     setTimeout(() => {
       this.$bus.$emit("audit", auditData);
     }, 500);

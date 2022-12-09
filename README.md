@@ -66,3 +66,20 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
           </el-select>
         </div>
 ```
+
+```js
+/////////////////
+console.log("123", storyOrder);
+console.log("95899", this.tableData);
+for (let index = 0; index < tableDatas.length; index++) {
+  for (let index = 0; index < storyOrder.length; index++) {
+    if (tableDatas[index].issue_grade_id == storyOrder[index].id) {
+      // this.tableData = this.tableData.unshift({
+      //   date: storyOrder[index].create_time,
+      //   name: storyOrder[index].grade_name,
+      //   address: workList,
+      // });
+    }
+  }
+}
+```

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>我是工位信息</h1>
+    <el-skeleton :rows="6" animated />
   </div>
 </template>
 
