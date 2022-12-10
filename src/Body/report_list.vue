@@ -5,6 +5,7 @@
       :data="tableData"
       style="width: 100%"
       height="350px"
+      :cell-class-name="tableRowClassName"
     >
       <el-table-column prop="address" label="工位信息"> </el-table-column>
       <el-table-column prop="name" label="报警等级"> </el-table-column>
@@ -27,6 +28,17 @@ export default {
     };
   },
   methods: {
+    // 等级变色
+    tableRowClassName({ row }) {
+      if (row.name == "等级一") {
+        return "red";
+      } else if (row.name == "等级二") {
+        return "orange";
+      } else if (row.name == "等级三") {
+        return "green";
+      }
+      return "";
+    },
     shwoData(is) {
       let storyOrders = [];
       let tableDatas = [];
@@ -64,7 +76,6 @@ export default {
           throw err;
         },
       });
-      console.log("8", tableDatas);
 
       // 问题等级三个等级
       $.ajax({
@@ -95,13 +106,13 @@ export default {
       setTimeout(() => {
         this.tableData = [];
         for (let index = 0; index < tableDatass.length; index++) {
-          for (let index = 0; index < storyOrders.length; index++) {
+          for (let indexx = 0; indexx < storyOrders.length; indexx++) {
             if (
-              tableDatass[index].issue_grade_id[0] === storyOrders[index].id
+              tableDatass[index].issue_grade_id[0] === storyOrders[indexx].id
             ) {
               this.tableData.unshift({
-                date: storyOrders[index].create_time,
-                name: storyOrders[index].grade_name,
+                date: tableDatass[index].create_time,
+                name: storyOrders[indexx].grade_name,
                 address: this.workList,
               });
             }
@@ -135,4 +146,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.red {
+  color: red;
+}
+.orange {
+  color: orange;
+}
+.green {
+  color: green;
+}
+</style>
