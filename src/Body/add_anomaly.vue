@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "hello-",
   data() {
@@ -17,6 +19,33 @@ export default {
   mounted() {
     this.drawLine();
     this.drawLineTwo();
+    //发送请求
+    var user = JSON.parse(sessionStorage.getItem("user"));
+    axios({
+      url: "http://8.142.1.120/rex/r/212495238953287680/data",
+      method: "GET",
+      data: {
+        limit: "10",
+      },
+      headers: {
+        //151315828379048320
+        //修改请求方式为json(默认为form-data)
+        "Content-Type": "application/json;charset=UTF-8",
+        //在这里向请求头中加入token携带发送
+        Authorization: "Bearer " + user.token,
+        "X-Tenant-Id": user.tenant_id, //租户id
+        "X-Team-Id": user.team_id, //组织id
+      },
+    }).then(
+      (response) => {
+        for (let index = 0; index < response.data.length; index++) {
+          this.TiemData.push(response.data[index].time);
+        }
+      },
+      (error) => {
+        throw error;
+      }
+    );
   },
   methods: {
     drawLine() {

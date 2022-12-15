@@ -6,42 +6,35 @@
       </div>
     </div>
     <!-- 卡片组件 -->
-    <div style="padding: 5px 5px; margin: 10px 10px">
-      <el-card
-        class="box-card"
-        style="border: 1px solid #9bccfd; background-color: #f4f9ff"
-      >
-        <div class="text item">
-          <h5>工位信息</h5>
+    <div v-for="(items, index) in obj_data" :key="index">
+      <div style="padding: 5px 5px; margin: 10px 10px">
+        <el-card
+          class="box-card"
+          style="border: 1px solid #9bccfd; background-color: #f4f9ff"
+        >
           <div class="text item">
-            <span style="margin-right: 15px">报警等级</span>
-            <span>一级报警</span>
+            <span style="font-size: 20px; margin-right: 15px">工位信息:</span>
+            <span>{{ items.title }}</span>
+            <div class="text item" prop="items">
+              <span style="margin-right: 15px">报警等级</span>
+              <span style="color: red" v-if="items.dengji === '等级一'">{{
+                items.dengji
+              }}</span
+              ><span style="color: #5de0ae" v-if="items.dengji === '等级三'">{{
+                items.dengji
+              }}</span
+              ><span style="color: #f89b10" v-if="items.dengji === '等级二'">{{
+                items.dengji
+              }}</span>
+              <!-- <span style="color: red">{{ items.dengji }}</span> -->
+            </div>
+            <div class="text item">
+              <span style="margin-right: 15px">报警时间</span>
+              <span>{{ items.titles }}</span>
+            </div>
           </div>
-          <div class="text item">
-            <span style="margin-right: 15px">报警时间</span>
-            <span>2020-03-10 01:14:12</span>
-          </div>
-        </div>
-      </el-card>
-    </div>
-    <!-- 卡片组件 -->
-    <div style="padding: 5px 5px; margin: 10px 10px">
-      <el-card
-        class="box-card"
-        style="border: 1px solid #9bccfd; background-color: #f4f9ff"
-      >
-        <div class="text item">
-          <h5>工位信息</h5>
-          <div class="text item">
-            <span style="margin-right: 15px">报警等级</span>
-            <span>一级报警</span>
-          </div>
-          <div class="text item">
-            <span style="margin-right: 15px">报警时间</span>
-            <span>2020-03-10 01:14:12</span>
-          </div>
-        </div>
-      </el-card>
+        </el-card>
+      </div>
     </div>
   </div>
 </template>
@@ -49,29 +42,32 @@
 <script>
 import echarts from "echarts";
 import "echarts-gl";
+import $ from "jquery";
+import axios from "axios";
 export default {
   name: "cityGreenLand",
   components: {},
   data() {
     return {
+      obj_data: [],
       optionData: [
         {
-          name: "二级预警",
-          value: 100,
-          itemStyle: {
-            color: "#f89b10",
-          },
-        },
-        {
           name: "一级预警",
-          value: 250,
+          value: 2472,
           itemStyle: {
             color: "#fd595a",
           },
         },
         {
+          name: "二级预警",
+          value: 5468,
+          itemStyle: {
+            color: "#f89b10",
+          },
+        },
+        {
           name: "三级预警",
-          value: 150,
+          value: 524,
           itemStyle: {
             color: "#5de0ae",
           },
@@ -83,8 +79,93 @@ export default {
     this.$nextTick(function () {
       this.init();
     });
+    var user = JSON.parse(sessionStorage.getItem("user"));
+    let storyOrders = [];
+    axios({
+      url: "http://8.142.1.120/rex/r/180570716453060608/data",
+      method: "GET",
+      data: {
+        limit: "100",
+      },
+      headers: {
+        //151315828379048320
+        //修改请求方式为json(默认为form-data)
+        "Content-Type": "application/json;charset=UTF-8",
+        //在这里向请求头中加入token携带发送
+        Authorization: "Bearer " + user.token,
+        "X-Tenant-Id": user.tenant_id, //租户id
+        "X-Team-Id": user.team_id, //组织id
+      },
+    }).then((response) => {
+      // 问题等级三个等级
+      $.ajax({
+        url: " http://8.142.1.120/rex/r/179437927070547968/data",
+        dataType: "json",
+        type: "GET",
+        data: {
+          limit: "100",
+        },
+        headers: {
+          //修改请求方式为json(默认为form-data)
+          "Content-Type": "application/json;charset=UTF-8",
+          //在这里向请求头中加入token携带发送
+          Authorization: "Bearer " + user.token,
+          "X-Tenant-Id": user.tenant_id, //租户id
+          "X-Team-Id": user.team_id, //组织id
+        },
+        success: function (data) {
+          storyOrders = data;
+        },
+        error: function (err) {
+          console.log(err);
+        },
+      });
+      setTimeout(() => {
+        for (let index = 0; index < response.data.length; index++) {
+          for (let indexx = 0; indexx < storyOrders.length; indexx++) {
+            if (
+              response.data[index].issue_grade_id[0] === storyOrders[indexx].id
+            ) {
+              this.obj_data.push({
+                id: response.data[index].id,
+                title: "车间一",
+                titles: response.data[index].create_time,
+                dengji: storyOrders[indexx].grade_name,
+              });
+              //  title: response.data[indexx].__station_id[0].v,
+            }
+          }
+        }
+        this.loading = false;
+      }, 1000);
+    });
+    //发送Ajax请求
+
+    $.ajax({
+      url: "http://8.142.1.120/rex/r/180570716453060608/data",
+      dataType: "json",
+      type: "GET",
+      data: {
+        limit: "100",
+      },
+      headers: {
+        //151315828379048320
+        //修改请求方式为json(默认为form-data)
+        "Content-Type": "application/json;charset=UTF-8",
+        //在这里向请求头中加入token携带发送
+        Authorization: "Bearer " + user.token,
+        "X-Tenant-Id": user.tenant_id, //租户id
+        "X-Team-Id": user.team_id, //组织id
+      },
+      success() {},
+      error: function (err) {
+        throw err;
+      },
+    });
   },
+
   methods: {
+    //饼图
     init() {
       //构建3d饼状图
       let myChart = echarts.init(
@@ -182,14 +263,14 @@ export default {
         let bfb = that.fomatFloat(series[i].pieData.value / sumValue, 4);
         legendData.push({
           name: series[i].name,
-          value: bfb,
+          // value: bfb,
         });
         legendBfb.push({
           name: series[i].name,
           value: bfb,
         });
       }
-      let boxHeight = this.getHeight3D(series, 26); //通过传参设定3d饼/环的高度，26代表26px
+      let boxHeight = this.getHeight3D(series, 20); //通过传参设定3d饼/环的高度，26代表26px
       // 准备待返回的配置项，把准备好的 legendData、series 传入。
       let option = {
         legend: {
@@ -381,48 +462,48 @@ export default {
     bindListen(myChart) {
       // 监听鼠标事件，实现饼图选中效果（单选），近似实现高亮（放大）效果。
       let that = this;
-      let selectedIndex = "";
+      // let selectedIndex = "";
       let hoveredIndex = "";
       // 监听点击事件，实现选中效果（单选）
-      myChart.on("click", function (params) {
-        // 从 option.series 中读取重新渲染扇形所需的参数，将是否选中取反。
-        let isSelected =
-          !that.option.series[params.seriesIndex].pieStatus.selected;
-        let isHovered =
-          that.option.series[params.seriesIndex].pieStatus.hovered;
-        let k = that.option.series[params.seriesIndex].pieStatus.k;
-        let startRatio =
-          that.option.series[params.seriesIndex].pieData.startRatio;
-        let endRatio = that.option.series[params.seriesIndex].pieData.endRatio;
-        // 如果之前选中过其他扇形，将其取消选中（对 option 更新）
-        if (selectedIndex !== "" && selectedIndex !== params.seriesIndex) {
-          that.option.series[selectedIndex].parametricEquation =
-            that.getParametricEquation(
-              that.option.series[selectedIndex].pieData.startRatio,
-              that.option.series[selectedIndex].pieData.endRatio,
-              false,
-              false,
-              k,
-              that.option.series[selectedIndex].pieData.value
-            );
-          that.option.series[selectedIndex].pieStatus.selected = false;
-        }
-        // 对当前点击的扇形，执行选中/取消选中操作（对 option 更新）
-        that.option.series[params.seriesIndex].parametricEquation =
-          that.getParametricEquation(
-            startRatio,
-            endRatio,
-            isSelected,
-            isHovered,
-            k,
-            that.option.series[params.seriesIndex].pieData.value
-          );
-        that.option.series[params.seriesIndex].pieStatus.selected = isSelected;
-        // 如果本次是选中操作，记录上次选中的扇形对应的系列号 seriesIndex
-        isSelected ? (selectedIndex = params.seriesIndex) : null;
-        // 使用更新后的 option，渲染图表
-        myChart.setOption(that.option);
-      });
+      // myChart.on("click", function (params) {
+      //   // 从 option.series 中读取重新渲染扇形所需的参数，将是否选中取反。
+      //   let isSelected =
+      //     !that.option.series[params.seriesIndex].pieStatus.selected;
+      //   let isHovered =
+      //     that.option.series[params.seriesIndex].pieStatus.hovered;
+      //   let k = that.option.series[params.seriesIndex].pieStatus.k;
+      //   let startRatio =
+      //     that.option.series[params.seriesIndex].pieData.startRatio;
+      //   let endRatio = that.option.series[params.seriesIndex].pieData.endRatio;
+      //   // 如果之前选中过其他扇形，将其取消选中（对 option 更新）
+      //   if (selectedIndex !== "" && selectedIndex !== params.seriesIndex) {
+      //     that.option.series[selectedIndex].parametricEquation =
+      //       that.getParametricEquation(
+      //         that.option.series[selectedIndex].pieData.startRatio,
+      //         that.option.series[selectedIndex].pieData.endRatio,
+      //         false,
+      //         false,
+      //         k,
+      //         that.option.series[selectedIndex].pieData.value
+      //       );
+      //     that.option.series[selectedIndex].pieStatus.selected = false;
+      //   }
+      //   // 对当前点击的扇形，执行选中/取消选中操作（对 option 更新）
+      //   that.option.series[params.seriesIndex].parametricEquation =
+      //     that.getParametricEquation(
+      //       startRatio,
+      //       endRatio,
+      //       isSelected,
+      //       isHovered,
+      //       k,
+      //       that.option.series[params.seriesIndex].pieData.value
+      //     );
+      //   that.option.series[params.seriesIndex].pieStatus.selected = isSelected;
+      //   // 如果本次是选中操作，记录上次选中的扇形对应的系列号 seriesIndex
+      //   isSelected ? (selectedIndex = params.seriesIndex) : null;
+      //   // 使用更新后的 option，渲染图表
+      //   myChart.setOption(that.option);
+      // });
       // 监听 mouseover，近似实现高亮（放大）效果
       myChart.on("mouseover", function (params) {
         // 准备重新渲染扇形所需的参数

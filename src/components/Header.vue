@@ -248,7 +248,6 @@ export default {
     }, 1000);
     //注册全局事件
     this.$bus.$on("hello", (data) => {
-      console.log("我是传递过来的数据", data);
       this.HeadTitle = data.title;
       this.isShow = data.id;
     });

@@ -5,11 +5,24 @@
       :data="tableData"
       style="width: 100%"
       height="350px"
-      :cell-class-name="tableRowClassName"
     >
       <el-table-column prop="address" label="工位信息"> </el-table-column>
-      <el-table-column prop="name" label="报警等级"> </el-table-column>
-      <el-table-column prop="date" label="报警时间"> </el-table-column>
+      <!-- <el-table-column prop="name" label="报警等级"> </el-table-column> -->
+      <el-table-column prop="name" label="报警等级">
+        <template scope="scope">
+          <span v-if="scope.row.name === '等级一'" style="color: red">{{
+            scope.row.name
+          }}</span>
+          <span v-if="scope.row.name === '等级二'" style="color: #fa9e18">{{
+            scope.row.name
+          }}</span>
+          <span v-if="scope.row.name === '等级三'" style="color: green">{{
+            scope.row.name
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="date" label="报警时间" style="color: green">
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -140,7 +153,6 @@ export default {
     //接收车间
     this.$bus.$on("label", (data) => {
       this.workList = data;
-      console.log("520", this.workList);
     });
   },
 };
