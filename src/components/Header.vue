@@ -161,7 +161,8 @@ export default {
       dataType: "json",
       data: JSON.stringify({
         username: "liqinkun",
-        password: md5("123456"),
+        //此处为密码
+        password: md5(""),
         grant_type: "password",
         scope: "server",
       }),
